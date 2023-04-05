@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "824223433951",
+    "project_id": "testflutter-48878",
+    "storage_bucket": "testflutter-48878.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824223433951:android:e8620d32a8261440abd56a",
+        "android_client_info": {
+          "package_name": "com.example.monitoring_cctv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824223433951-0q7pco9m21m84d49fa5mlsolg568hbdl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXVOydy3ILkvz9_11_jgcfQ_Nkz9Tj20k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824223433951-0q7pco9m21m84d49fa5mlsolg568hbdl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
