@@ -56,7 +56,7 @@ class FirebaseCRUD {
     Map<String, dynamic> data = <String, dynamic>{
       "cctv_name": cctvname,
       "cctv_ip": cctvip,
-      "cctv_location": cctvlocation,
+      "cctv_location": cctvlocation
     };
 
     await documentReferencer.update(data).whenComplete(() {
@@ -64,7 +64,7 @@ class FirebaseCRUD {
       response.message = "Sucessfully Update";
     }).catchError((e) {
       response.code = 500;
-      response.message = e;
+      response.message = e();
     });
     return response;
   }

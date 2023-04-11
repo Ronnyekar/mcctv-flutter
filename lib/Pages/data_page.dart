@@ -47,6 +47,7 @@ class _DataPageState extends State<DataPage> {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(32)),
+                      //BLANK
                       onTap: () {
                         Navigator.pop(context);
                       },
@@ -99,78 +100,85 @@ class _DataPageState extends State<DataPage> {
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: ListView(
-                children: snapshot.data!.docs.map((e) {
-                  return Card(
-                      child: Column(children: [
-                    ListTile(
-                      title: Text(e["cctv_name"]),
-                      subtitle: Container(
-                        child: (Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text("IP CCTV : " + e['cctv_ip'],
-                                style: const TextStyle(fontSize: 14)),
-                            Text("Locatin : " + e['cctv_location'],
-                                style: const TextStyle(fontSize: 12)),
-                          ],
-                        )),
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(5.0),
-                            primary: const Color.fromARGB(255, 143, 133, 226),
-                            textStyle: const TextStyle(fontSize: 20),
-                          ),
-                          child: const Text('Edit'),
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil<dynamic>(
-                              context,
-                              MaterialPageRoute<dynamic>(
-                                builder: (BuildContext context) => EditPage(
-                                  cctv: Cctv(
-                                    id: e.id,
-                                    cctvname: e["cctv_name"],
-                                    cctvip: e["cctv_ip"],
-                                    cctvlocation: e["cctv_location"],
-                                  ),
-                                ),
-                              ),
-                              (route) =>
-                                  false, //if you want to disable back feature set to false
-                            );
-                          },
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(5.0),
-                            primary: const Color.fromARGB(255, 143, 133, 226),
-                            textStyle: const TextStyle(fontSize: 20),
-                          ),
-                          child: const Text('Delete'),
-                          onPressed: () async {
-                            var response =
-                                await FirebaseCRUD.deleteCctv(docid: e.id);
-                            if (response.code != 200) {
-                              // ignore: use_build_context_synchronously
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      content:
-                                          Text(response.message.toString()),
-                                    );
-                                  });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ]));
-                }).toList(),
+                children: <Widget>[
+                  ListData(),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  ListData2()
+                ],
+                // children: snapshot.data!.docs.map((e) {
+                //   return Card(
+                //       child: Column(children: [
+                //     ListTile(
+                //       title: Text(e["cctv_name"]),
+                //       subtitle: Container(
+                //         child: (Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: <Widget>[
+                //             Text("IP CCTV : " + e['cctv_ip'],
+                //                 style: const TextStyle(fontSize: 14)),
+                //             Text("Location : " + e['cctv_location'],
+                //                 style: const TextStyle(fontSize: 12)),
+                //           ],
+                //         )),
+                //       ),
+                //     ),
+                //     ButtonBar(
+                //       alignment: MainAxisAlignment.spaceBetween,
+                //       children: <Widget>[
+                //         TextButton(
+                //           style: TextButton.styleFrom(
+                //             padding: const EdgeInsets.all(5.0),
+                //             primary: const Color.fromARGB(255, 143, 133, 226),
+                //             textStyle: const TextStyle(fontSize: 20),
+                //           ),
+                //           child: const Text('Edit'),
+                //           onPressed: () {
+                //             Navigator.pushAndRemoveUntil<dynamic>(
+                //               context,
+                //               MaterialPageRoute<dynamic>(
+                //                 builder: (BuildContext context) => EditPage(
+                //                   cctv: Cctv(
+                //                     id: e.id,
+                //                     cctvname: e["cctv_name"],
+                //                     cctvip: e["cctv_ip"],
+                //                     cctvlocation: e["cctv_location"],
+                //                   ),
+                //                 ),
+                //               ),
+                //               (route) =>
+                //                   false, //if you want to disable back feature set to false
+                //             );
+                //           },
+                //         ),
+                //         TextButton(
+                //           style: TextButton.styleFrom(
+                //             padding: const EdgeInsets.all(5.0),
+                //             primary: const Color.fromARGB(255, 143, 133, 226),
+                //             textStyle: const TextStyle(fontSize: 20),
+                //           ),
+                //           child: const Text('Delete'),
+                //           onPressed: () async {
+                //             var response =
+                //                 await FirebaseCRUD.deleteCctv(docid: e.id);
+                //             if (response.code != 200) {
+                //               // ignore: use_build_context_synchronously
+                //               showDialog(
+                //                   context: context,
+                //                   builder: (context) {
+                //                     return AlertDialog(
+                //                       content:
+                //                           Text(response.message.toString()),
+                //                     );
+                //                   });
+                //             }
+                //           },
+                //         ),
+                //           ],
+                //         ),
+                //       ]));
+                //   }).toList(),
               ),
             );
           }
@@ -178,6 +186,91 @@ class _DataPageState extends State<DataPage> {
         },
       ),
     );
+  }
+
+  //LISTVIEW FIX
+  Widget ListData() {
+    return Card(
+        child: Column(children: [
+      ListTile(
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 2.5, bottom: 5),
+                    child: Text(
+                      "TITLE",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 5, bottom: 2.5),
+                    child: Text(
+                      "IP CCTV",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 2.5, bottom: 5),
+                    child: Text(
+                      "Location",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text("Status"),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.close))
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    ]));
+  }
+
+  //Experiment
+  Widget ListData2() {
+    return Card(
+        child: Column(children: [
+      ListTile(
+          title: Text("TITLE"),
+          subtitle: Container(
+            child: (Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 5, bottom: 2.5),
+                  child: Text("IP CCTV : ", style: TextStyle(fontSize: 14)),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 2.5, bottom: 5),
+                  child: Text("Location : ", style: TextStyle(fontSize: 14)),
+                ),
+              ],
+            )),
+          ),
+          trailing: Row(
+            children: const <Widget>[Text("data")],
+          )),
+    ]));
   }
 
   // body: Material(

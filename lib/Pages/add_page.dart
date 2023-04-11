@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monitoring_cctv/Pages/data_page.dart';
+import 'package:monitoring_cctv/Pages/home_page.dart';
 import '../constant.dart';
 import 'package:monitoring_cctv/widget/widget.dart';
 import 'package:monitoring_cctv/firebase/firebase_crud.dart';
@@ -18,10 +19,9 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  String dropdownValue = "Kantor Pusat";
+  String _cctv_location = "Kantor Pusat";
   final _cctv_name = TextEditingController();
   final _cctv_ip = TextEditingController();
-  final _cctv_location = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -67,7 +67,7 @@ class _AddPageState extends State<AddPage> {
 
     Widget LocationDD() {
       return DropdownButton<String>(
-        value: dropdownValue,
+        value: _cctv_location,
         dropdownColor: Colors.white,
         items: <String>[
           'Kantor Pusat',
@@ -87,7 +87,7 @@ class _AddPageState extends State<AddPage> {
         }).toList(),
         onChanged: (String? newValue) {
           setState(() {
-            dropdownValue = newValue!;
+            _cctv_location = newValue!;
           });
         },
       );
@@ -105,7 +105,7 @@ class _AddPageState extends State<AddPage> {
             var response = await FirebaseCRUD.addCctv(
                 cctvname: _cctv_name.text,
                 cctvip: _cctv_ip.text,
-                cctvlocation: dropdownValue);
+                cctvlocation: _cctv_location);
             if (response.code != 200) {
               showDialog(
                   context: context,

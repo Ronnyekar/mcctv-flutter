@@ -20,11 +20,9 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  String dropdownValue = "Kantor Pusat";
-
+  String _cctv_location = "Kantor Pusat";
   final _cctv_name = TextEditingController();
   final _cctv_ip = TextEditingController();
-  final _cctv_location = TextEditingController();
   final _docid = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -32,8 +30,9 @@ class _EditPageState extends State<EditPage> {
     _docid.value = TextEditingValue(text: widget.cctv!.id.toString());
     _cctv_name.value = TextEditingValue(text: widget.cctv!.cctvname.toString());
     _cctv_ip.value = TextEditingValue(text: widget.cctv!.cctvip.toString());
-    _cctv_location.value =
-        TextEditingValue(text: widget.cctv!.cctvlocation.toString());
+    // _cctv_location = widget.cctv!.cctvlocation.toString();
+    // _cctv_location.value =
+    //     TextEditingValue(text: widget.cctv!.cctvlocation.toString());
   }
 
   @override
@@ -89,7 +88,7 @@ class _EditPageState extends State<EditPage> {
 
     Widget LocationDD() {
       return DropdownButton<String>(
-        value: dropdownValue,
+        value: _cctv_location,
         dropdownColor: Colors.white,
         items: <String>[
           'Kantor Pusat',
@@ -109,7 +108,7 @@ class _EditPageState extends State<EditPage> {
         }).toList(),
         onChanged: (String? newValue) {
           setState(() {
-            dropdownValue = newValue!;
+            _cctv_location = newValue!;
           });
         },
       );
@@ -127,7 +126,7 @@ class _EditPageState extends State<EditPage> {
             var response = await FirebaseCRUD.updateCctv(
               cctvname: _cctv_name.text,
               cctvip: _cctv_ip.text,
-              cctvlocation: _cctv_location.text,
+              cctvlocation: _cctv_location,
             );
             if (response.code != 200) {
               showDialog(
