@@ -1,4 +1,5 @@
 import 'package:monitoring_cctv/Pages/company_selector_page.dart';
+import 'package:monitoring_cctv/Pages/home_page.dart';
 import 'package:monitoring_cctv/firebase/handler.dart';
 import 'package:monitoring_cctv/models/firebaseuser.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return const Handler();
     } else {
-      return const SelectCompanyPage();
+      return const HomePage();
     }
   }
 }

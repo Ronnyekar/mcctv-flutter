@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
                       ),
                       emailField,
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       passwordField,
                       Container(
@@ -193,6 +193,7 @@ class _LoginState extends State<Login> {
                         children: [
                           Text(
                             'New?',
+                            overflow: TextOverflow.ellipsis,
                             style: kBodyText.copyWith(color: Colors.black),
                           ),
                           TextButton(
@@ -201,6 +202,7 @@ class _LoginState extends State<Login> {
                               },
                               child: Text(
                                 'Register Here',
+                                overflow: TextOverflow.ellipsis,
                                 style: kBodyText.copyWith(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),

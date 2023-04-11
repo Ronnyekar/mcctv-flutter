@@ -1,7 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // // import 'package:monitoring_cctv/flavor_config.dart';
-// import 'package:monitoring_cctv/my_app.dart';
+// import 'package:monitoring_cctv/main/my_app.dart';
 // import 'package:flutter_flavor/flutter_flavor.dart';
 
 // // void main() {

@@ -1,21 +1,21 @@
-// {
-//     "version": "0.2.0",
-//     "configurations": [
-//         // fvm flutter build apk --flavor dev -t lib\main_dev.dart
-//         // fvm flutter run --flavor dev -t lib\main_dev.dart
-//         {
-//             "name": "Dev",
-//             "request": "launch",
+{
+    "version": "0.2.0",
+    "configurations": [
+        // fvm flutter build apk --flavor dev -t lib\main_dev.dart
+        // fvm flutter run --flavor dev -t lib\main_dev.dart
+        {
+            "name": "Dev",
+            "request": "launch",
             
-//             "type": "dart",
-//             "args": ["--flavor", "dev", "--target", "lib/main_dev.dart"]
-//         },
-//         {
-//             "name": "Prod",
-//             "request": "launch",
-//             "type": "dart",
-//             "args": ["--flavor", "prod", "--target", "lib/main_prod.dart"]
-//         },
-//     ],
-//     "compounds": []
-// }
+            "type": "dart",
+            "args": ["--flavor", "dev", "--target", "lib/main_dev.dart"]
+        },
+        {
+            "name": "Prod",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--flavor", "prod", "--target", "lib/main_prod.dart"]
+        },
+    ],
+    "compounds": []
+}
