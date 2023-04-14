@@ -6,6 +6,7 @@ class Cctv {
   String? cctvstatus;
   String? cctvlat;
   String? cctvlong;
+  bool? isStatusOk;
 
   Cctv(
       {this.id,
@@ -14,5 +15,6 @@ class Cctv {
       this.cctvlocation,
       this.cctvstatus,
       this.cctvlat,
-      this.cctvlong});
+      this.cctvlong,
+      this.isStatusOk});
 }

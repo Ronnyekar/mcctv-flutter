@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white70.withOpacity(0.9),

@@ -96,39 +96,49 @@ class _AddPageState extends State<AddPage> {
     final SaveButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Theme.of(context).primaryColor,
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {
-            var response = await FirebaseCRUD.addCctv(
-                cctvname: _cctv_name.text,
-                cctvip: _cctv_ip.text,
-                cctvlocation: _cctv_location);
-            if (response.code != 200) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Text(response.message.toString()),
-                    );
-                  });
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Text(response.message.toString()),
-                    );
-                  });
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [firstcolor, secondcolor],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+            borderRadius: BorderRadius.all(Radius.circular(100))),
+        child: MaterialButton(
+          minWidth: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              var response = await FirebaseCRUD.addCctv(
+                  cctvname: _cctv_name.text,
+                  cctvip: _cctv_ip.text,
+                  cctvlocation: _cctv_location);
+              if (response.code != 200) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(response.message.toString()),
+                      );
+                    });
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(response.message.toString()),
+                      );
+                    });
+              }
             }
-          }
-        },
-        child: Text(
-          "Save",
-          style: TextStyle(color: Theme.of(context).primaryColorLight),
-          textAlign: TextAlign.center,
+          },
+          child: Text(
+            "Save",
+            style: TextStyle(
+                color: Theme.of(context).primaryColorLight,
+                fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

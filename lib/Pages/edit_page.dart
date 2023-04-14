@@ -117,40 +117,50 @@ class _EditPageState extends State<EditPage> {
     final SaveButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Theme.of(context).primaryColor,
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {
-            var response = await FirebaseCRUD.updateCctv(
-              cctvname: _cctv_name.text,
-              cctvip: _cctv_ip.text,
-              cctvlocation: _cctv_location,
-            );
-            if (response.code != 200) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Text(response.message.toString()),
-                    );
-                  });
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Text(response.message.toString()),
-                    );
-                  });
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [firstcolor, secondcolor],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+            borderRadius: const BorderRadius.all(Radius.circular(100))),
+        child: MaterialButton(
+          minWidth: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              var response = await FirebaseCRUD.updateCctv(
+                cctvname: _cctv_name.text,
+                cctvip: _cctv_ip.text,
+                cctvlocation: _cctv_location,
+              );
+              if (response.code != 200) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(response.message.toString()),
+                      );
+                    });
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(response.message.toString()),
+                      );
+                    });
+              }
             }
-          }
-        },
-        child: Text(
-          "Update",
-          style: TextStyle(color: Theme.of(context).primaryColorLight),
-          textAlign: TextAlign.center,
+          },
+          child: Text(
+            "Update",
+            style: TextStyle(
+                color: Theme.of(context).primaryColorLight,
+                fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
@@ -230,120 +240,6 @@ class _EditPageState extends State<EditPage> {
               ))
         ],
       ),
-
-      // body: SafeArea(
-      //   child: CustomScrollView(
-      //     slivers: [
-      //       SliverFillRemaining(
-      //         hasScrollBody: false,
-      //         child: Padding(
-      //           padding: const EdgeInsets.symmetric(
-      //             horizontal: 20,
-      //           ),
-      //           child: Column(
-      //             children: [
-      //               Flexible(
-      //                 child: Column(
-      //                   mainAxisAlignment: MainAxisAlignment.start,
-      //                   crossAxisAlignment: CrossAxisAlignment.center,
-      //                   children: <Widget>[
-      //                     const SizedBox(
-      //                       height: 30,
-      //                     ),
-      //                     Text(
-      //                       'EDIT DATA',
-      //                       style: kBodyText2.copyWith(
-      //                           color: Colors.black,
-      //                           fontWeight: FontWeight.bold),
-      //                     ),
-      //                     const SizedBox(
-      //                       height: 170,
-      //                     ),
-      //                     _textInput(hint: 'Username', icon: Icons.email),
-      //                     _textInput(hint: 'Password', icon: Icons.vpn_key),
-      //                     Align(
-      //                       alignment: Alignment.topRight,
-      //                       child: Row(
-      //                         children: [
-      //                           const Text(
-      //                             'Location : ',
-      //                             style: TextStyle(
-      //                                 color: Colors.black,
-      //                                 fontSize: 20,
-      //                                 fontWeight: FontWeight.w400),
-      //                           ),
-      //                           const SizedBox(
-      //                             width: 50,
-      //                           ),
-      //                           DropdownButton<String>(
-      //                             value: dropdownValue,
-      //                             dropdownColor: Colors.white,
-      //                             items: <String>[
-      //                               'Kantor Pusat',
-      //                               'Kantor Cabang',
-      //                               'Jamrud',
-      //                               'Nilam',
-      //                               'Mirah',
-      //                               'GSN'
-      //                             ].map<DropdownMenuItem<String>>(
-      //                                 (String value) {
-      //                               return DropdownMenuItem<String>(
-      //                                 value: value,
-      //                                 child: Text(
-      //                                   value,
-      //                                   style: const TextStyle(
-      //                                       color: Colors.black, fontSize: 20),
-      //                                 ),
-      //                               );
-      //                             }).toList(),
-      //                             onChanged: (String? newValue) {
-      //                               setState(() {
-      //                                 dropdownValue = newValue!;
-      //                               });
-      //                             },
-      //                           ),
-      //                         ],
-      //                       ),
-      //                     ),
-      //                     const Spacer(),
-      //                     InkWell(
-      //                       onTap: () {
-      //                         Navigator.push(
-      //                             context,
-      //                             CupertinoPageRoute(
-      //                                 builder: (context) => const DataPage()));
-      //                       },
-      //                       child: Container(
-      //                         width: double.infinity,
-      //                         height: 40,
-      //                         decoration: BoxDecoration(
-      //                             gradient: LinearGradient(
-      //                               colors: [firstcolor, secondcolor],
-      //                               begin: Alignment.topCenter,
-      //                               end: Alignment.bottomCenter,
-      //                             ),
-      //                             borderRadius: const BorderRadius.all(
-      //                                 Radius.circular(100))),
-      //                         alignment: Alignment.center,
-      //                         child: const Text(
-      //                           'UPDATE',
-      //                           style: TextStyle(
-      //                               color: Colors.white,
-      //                               fontSize: 20,
-      //                               fontWeight: FontWeight.bold),
-      //                         ),
-      //                       ),
-      //                     )
-      //                   ],
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
