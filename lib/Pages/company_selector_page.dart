@@ -26,15 +26,10 @@ class _SelectCompanyPageState extends State<SelectCompanyPage> {
               Container(
                 height: 300,
                 decoration: BoxDecoration(
-                  // gradient: LinearGradient(
-                  //     colors: [firstColor, secondColor],
-                  //     begin: Alignment.topRight,
-                  //     end: Alignment.center),
                   borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(120),
                       bottomRight: Radius.circular(30)),
                   color: firstColor,
-                  // color: Colors.orangeAccent.shade700,
                 ),
                 width: double.infinity,
               ),
@@ -44,7 +39,6 @@ class _SelectCompanyPageState extends State<SelectCompanyPage> {
                 height: 279,
                 decoration: BoxDecoration(
                     color: secondColor,
-                    // color: Colors.orangeAccent.shade400,
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(160),
                         bottomLeft: Radius.circular(290),

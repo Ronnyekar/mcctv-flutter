@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monitoring_cctv/Pages/company_selector_page.dart';
-import 'package:monitoring_cctv/Pages/register_page.dart';
 import 'package:monitoring_cctv/constant.dart';
 import 'package:monitoring_cctv/firebase/auth.dart';
 import 'package:monitoring_cctv/models/loginuser.dart';

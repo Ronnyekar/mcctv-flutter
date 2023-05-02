@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monitoring_cctv/Pages/login_page.dart';
 import 'package:monitoring_cctv/constant.dart';
 import 'package:monitoring_cctv/models/loginuser.dart';
 import 'package:monitoring_cctv/firebase/auth.dart';
@@ -57,7 +56,6 @@ class _RegisterPageState extends State<RegisterPage> {
           if (value.trim().length < 8) {
             return 'Password must be at least 8 characters in length';
           }
-          // Return null if the entered password is valid
           return null;
         },
         decoration: InputDecoration(
@@ -97,8 +95,6 @@ class _RegisterPageState extends State<RegisterPage> {
               dynamic result = await _auth.registerEmailPassword(
                   LoginUser(email: _email.text, password: _password.text));
               if (result.uid == null) {
-                //null means unsuccessfull authentication
-                // ignore: use_build_context_synchronously
                 showDialog(
                     context: context,
                     builder: (context) {

@@ -5,15 +5,12 @@ import 'package:monitoring_cctv/firebase/auth.dart';
 import 'package:monitoring_cctv/firebase/wrapper.dart';
 import 'package:monitoring_cctv/models/firebaseuser.dart';
 import 'package:provider/provider.dart';
-import 'package:monitoring_cctv/Pages/login_page.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class MyApp extends StatelessWidget {
   // final FlavorConfig flavorConfig;
   // const MyApp({super.key, required this.flavorConfig});
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -48,7 +45,7 @@ class MyApp extends StatelessWidget {
             )),
         home: SplashScreen(
           seconds: 5,
-          navigateAfterSeconds: Wrapper(),
+          navigateAfterSeconds: const Wrapper(),
           image: Image.asset(
             'images/Logo.png',
             height: 250,
@@ -57,7 +54,6 @@ class MyApp extends StatelessWidget {
           ),
           photoSize: 100,
           backgroundColor: Colors.white,
-          // backgroundColor: const Color(0xff392850),
           styleTextUnderTheLoader: const TextStyle(),
           loaderColor: Colors.blue,
         ),

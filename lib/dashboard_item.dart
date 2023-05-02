@@ -39,11 +39,6 @@ class DashboardItem extends StatelessWidget {
       onTap: () {
         showDialog(
             context: context, builder: ((context) => (const AlertWidget())));
-        // Navigator.push(
-        // context,
-        // CupertinoPageRoute(
-        //   builder: (context) => const AddformPage(),
-        // ));
       },
     );
     Items item3 = Items(
@@ -53,11 +48,6 @@ class DashboardItem extends StatelessWidget {
       onTap: () {
         showDialog(
             context: context, builder: ((context) => (const AlertWidget())));
-        // Navigator.push(
-        //     context,
-        //     CupertinoPageRoute(
-        //       builder: (context) => const AddformPage(),
-        //     ));
       },
     );
     Items item4 = Items(
@@ -67,16 +57,10 @@ class DashboardItem extends StatelessWidget {
       onTap: () {
         showDialog(
             context: context, builder: ((context) => (const AlertWidget())));
-        // Navigator.push(
-        //     context,
-        //     CupertinoPageRoute(
-        //       builder: (context) => const AddformPage(),
-        //     ));
       },
     );
 
     List<Items> myList = [item1, item2, item3, item4];
-    // var color = 0xff453658;
     return Flexible(
       child: GridView.count(
         childAspectRatio: 1.0,

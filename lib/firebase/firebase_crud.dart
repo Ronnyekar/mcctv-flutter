@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:monitoring_cctv/models/response.dart';
-import 'package:monitoring_cctv/models/cctv.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;

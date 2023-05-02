@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:monitoring_cctv/Pages/login_page.dart';
 import 'package:monitoring_cctv/dashboard_item.dart';
 import 'package:monitoring_cctv/firebase/auth.dart';
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String dropdownValue = 'PT IDU-1';
-  final AuthService _auth = new AuthService();
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     final SignOut = Material(
@@ -56,7 +57,6 @@ class _HomePageState extends State<HomePage> {
             height: 279,
             decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 30, 129, 242),
-                // color: Colors.orangeAccent.shade400,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(160),
                     bottomLeft: Radius.circular(290),

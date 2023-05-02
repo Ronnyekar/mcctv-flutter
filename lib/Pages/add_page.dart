@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monitoring_cctv/Pages/data_page.dart';
-import 'package:monitoring_cctv/Pages/home_page.dart';
-import '../constant.dart';
-import 'package:monitoring_cctv/widget/widget.dart';
 import 'package:monitoring_cctv/firebase/firebase_crud.dart';
 
 Color bgColor = Colors.white70.withOpacity(0.9);
@@ -58,7 +55,7 @@ class _AddPageState extends State<AddPage> {
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => DataPage(),
+              builder: (BuildContext context) => const DataPage(),
             ),
             (route) => false, //To disable back feature set to false
           );
@@ -103,7 +100,7 @@ class _AddPageState extends State<AddPage> {
                 colors: [firstcolor, secondcolor],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter),
-            borderRadius: BorderRadius.all(Radius.circular(100))),
+            borderRadius: const BorderRadius.all(Radius.circular(100))),
         child: MaterialButton(
           minWidth: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -114,6 +111,10 @@ class _AddPageState extends State<AddPage> {
                   cctvip: _cctv_ip.text,
                   cctvlocation: _cctv_location);
               if (response.code != 200) {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => const DataPage()),
+                );
                 showDialog(
                     context: context,
                     builder: (context) {
@@ -144,7 +145,6 @@ class _AddPageState extends State<AddPage> {
     );
 
     return Scaffold(
-      // backgroundColor: bgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -215,139 +215,6 @@ class _AddPageState extends State<AddPage> {
                 ),
               ))
         ],
-      ),
-
-      // body: SafeArea(
-      //   child: CustomScrollView(
-      //     slivers: [
-      //       SliverFillRemaining(
-      //         hasScrollBody: false,
-      //         child: Padding(
-      //           padding: const EdgeInsets.symmetric(
-      //             horizontal: 20,
-      //           ),
-      //           child: Column(
-      //             children: [
-      //               Flexible(
-      //                 child: Column(
-      //                   mainAxisAlignment: MainAxisAlignment.start,
-      //                   crossAxisAlignment: CrossAxisAlignment.center,
-      //                   children: <Widget>[
-      //                     const SizedBox(
-      //                       height: 30,
-      //                     ),
-      //                     Text(
-      //                       'ADD DATA',
-      //                       style: kBodyText2.copyWith(
-      //                           color: Colors.black,
-      //                           fontWeight: FontWeight.bold),
-      //                     ),
-      //                     const SizedBox(
-      //                       height: 170,
-      //                     ),
-      //                     _textInput(hint: 'Username', icon: Icons.email),
-      //                     _textInput(hint: 'Password', icon: Icons.vpn_key),
-      //                     Align(
-      //                       alignment: Alignment.topRight,
-      //                       child: Row(
-      //                         children: [
-      //                           const Text(
-      //                             'Location : ',
-      //                             style: TextStyle(
-      //                                 color: Colors.black,
-      //                                 fontSize: 20,
-      //                                 fontWeight: FontWeight.w400),
-      //                           ),
-      //                           const SizedBox(
-      //                             width: 50,
-      //                           ),
-      //                           DropdownButton<String>(
-      //                             value: dropdownValue,
-      //                             dropdownColor: Colors.white,
-      //                             items: <String>[
-      //                               'Kantor Pusat',
-      //                               'Kantor Cabang',
-      //                               'Jamrud',
-      //                               'Nilam',
-      //                               'Mirah',
-      //                               'GSN'
-      //                             ].map<DropdownMenuItem<String>>(
-      //                                 (String value) {
-      //                               return DropdownMenuItem<String>(
-      //                                 value: value,
-      //                                 child: Text(
-      //                                   value,
-      //                                   style: const TextStyle(
-      //                                       color: Colors.black, fontSize: 20),
-      //                                 ),
-      //                               );
-      //                             }).toList(),
-      //                             onChanged: (String? newValue) {
-      //                               setState(() {
-      //                                 dropdownValue = newValue!;
-      //                               });
-      //                             },
-      //                           ),
-      //                         ],
-      //                       ),
-      //                     ),
-      //                     const Spacer(),
-      //                     InkWell(
-      //                       onTap: () {
-      //                         Navigator.push(
-      //                             context,
-      //                             CupertinoPageRoute(
-      //                                 builder: (context) => const DataPage()));
-      //                       },
-      //                       child: Container(
-      //                         width: double.infinity,
-      //                         height: 40,
-      //                         decoration: BoxDecoration(
-      //                             gradient: LinearGradient(
-      //                               colors: [firstcolor, secondcolor],
-      //                               begin: Alignment.topCenter,
-      //                               end: Alignment.bottomCenter,
-      //                             ),
-      //                             borderRadius: const BorderRadius.all(
-      //                                 Radius.circular(100))),
-      //                         alignment: Alignment.center,
-      //                         child: const Text(
-      //                           'SAVE',
-      //                           style: TextStyle(
-      //                               color: Colors.white,
-      //                               fontSize: 20,
-      //                               fontWeight: FontWeight.bold),
-      //                         ),
-      //                       ),
-      //                     )
-      //                   ],
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-    );
-  }
-
-  Widget _textInput({controller, hint, icon}) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Colors.black26,
-      ),
-      padding: const EdgeInsets.only(left: 10),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hint,
-          prefixIcon: Icon(icon),
-        ),
       ),
     );
   }

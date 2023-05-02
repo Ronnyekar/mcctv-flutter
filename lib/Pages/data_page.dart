@@ -29,11 +29,10 @@ class _DataPageState extends State<DataPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         shadowColor: Colors.transparent,
-        // backgroundColor: Colors.white70.withOpacity(0.9),
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [firstcolor, thirdcolor],
+                colors: [firstcolor, secondcolor],
                 end: Alignment.bottomCenter,
                 begin: Alignment.topCenter),
           ),
@@ -49,7 +48,6 @@ class _DataPageState extends State<DataPage> {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(32)),
-                      //BLANK
                       onTap: () {
                         Navigator.pop(context);
                       },
@@ -101,99 +99,104 @@ class _DataPageState extends State<DataPage> {
           if (snapshot.hasData) {
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: ListView(
-                children: snapshot.data!.docs.map((e) {
-                  return Slidable(
-                    actionPane: const SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
-                    secondaryActions: <Widget>[
-                      IconSlideAction(
-                        caption: "EDIT",
-                        color: Colors.transparent,
-                        foregroundColor: Colors.black,
-                        icon: Icons.edit,
-                        onTap: () {
-                          Navigator.pushAndRemoveUntil<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => EditPage(
-                                cctv: Cctv(
-                                  id: e.id,
-                                  cctvname: e["cctv_name"],
-                                  cctvip: e["cctv_ip"],
-                                  cctvlocation: e["cctv_location"],
+              child: Row(
+                children: [
+                  const Text("<------ Swipe to choose action"),
+                  ListView(
+                    children: snapshot.data!.docs.map((e) {
+                      return Slidable(
+                        actionPane: const SlidableDrawerActionPane(),
+                        actionExtentRatio: 0.25,
+                        secondaryActions: <Widget>[
+                          IconSlideAction(
+                            caption: "EDIT",
+                            color: Colors.transparent,
+                            foregroundColor: Colors.black,
+                            icon: Icons.edit,
+                            onTap: () {
+                              Navigator.pushAndRemoveUntil<dynamic>(
+                                context,
+                                MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) => EditPage(
+                                    cctv: Cctv(
+                                      id: e.id,
+                                      cctvname: e["cctv_name"],
+                                      cctvip: e["cctv_ip"],
+                                      cctvlocation: e["cctv_location"],
+                                    ),
+                                  ),
+                                ),
+                                (route) => true,
+                              );
+                            },
+                          ),
+                          IconSlideAction(
+                            caption: 'DELETE',
+                            color: Colors.transparent,
+                            foregroundColor: Colors.black,
+                            icon: Icons.delete,
+                            onTap: () async {
+                              var response =
+                                  await FirebaseCRUD.deleteCctv(docid: e.id);
+                              if (response.code != 200) {
+                                // ignore: use_build_context_synchronously
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content:
+                                            Text(response.message.toString()),
+                                      );
+                                    });
+                              }
+                            },
+                          ),
+                        ],
+                        child: Card(
+                          child: Column(children: <Widget>[
+                            ListTile(
+                              contentPadding: const EdgeInsets.only(
+                                  left: 15, right: 20, top: 5, bottom: 5),
+                              title: Text(
+                                e["cctv_name"],
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                              subtitle: Container(
+                                padding: const EdgeInsets.only(
+                                  top: 7,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text("IP CCTV : " + e['cctv_ip'],
+                                        style: const TextStyle(fontSize: 14)),
+                                    Text("Location : " + e['cctv_location'],
+                                        style: const TextStyle(fontSize: 12)),
+                                  ],
+                                ),
+                              ),
+                              trailing: AnimatedContainer(
+                                height: 30,
+                                width: 60,
+                                duration: const Duration(milliseconds: 300),
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.black)),
+                                child: const Center(
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 ),
                               ),
                             ),
-                            (route) =>
-                                true, //if you want to disable back feature set to false
-                          );
-                        },
-                      ),
-                      IconSlideAction(
-                        caption: 'DELETE',
-                        color: Colors.transparent,
-                        foregroundColor: Colors.black,
-                        icon: Icons.delete,
-                        onTap: () async {
-                          var response =
-                              await FirebaseCRUD.deleteCctv(docid: e.id);
-                          if (response.code != 200) {
-                            // ignore: use_build_context_synchronously
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    content: Text(response.message.toString()),
-                                  );
-                                });
-                          }
-                        },
-                      ),
-                    ],
-                    child: Card(
-                      child: Column(children: <Widget>[
-                        ListTile(
-                          contentPadding: const EdgeInsets.only(
-                              left: 15, right: 20, top: 5, bottom: 5),
-                          title: Text(
-                            e["cctv_name"],
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          subtitle: Container(
-                            padding: const EdgeInsets.only(
-                              top: 7,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("IP CCTV : " + e['cctv_ip'],
-                                    style: const TextStyle(fontSize: 14)),
-                                Text("Location : " + e['cctv_location'],
-                                    style: const TextStyle(fontSize: 12)),
-                              ],
-                            ),
-                          ),
-                          trailing: AnimatedContainer(
-                            height: 30,
-                            width: 80,
-                            duration: Duration(milliseconds: 300),
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.black)),
-                            child: Center(
-                              child: Text(
-                                'OK',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
+                          ]),
                         ),
-                      ]),
-                    ),
-                  );
-                }).toList(),
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
             );
           }
@@ -202,151 +205,6 @@ class _DataPageState extends State<DataPage> {
       ),
     );
   }
-
-  //LISTVIEW FIX
-  Widget ListData() {
-    return Card(
-        child: Column(children: [
-      ListTile(
-        title: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 2.5, bottom: 5),
-                    child: Text(
-                      "TITLE",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 5, bottom: 2.5),
-                    child: Text(
-                      "IP CCTV",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 2.5, bottom: 5),
-                    child: Text(
-                      "Location",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text("Status"),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.close))
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    ]));
-  }
-
-  //Experiment
-  Widget ListData2() {
-    return Card(
-        child: Column(children: [
-      ListTile(
-          title: Text("TITLE"),
-          subtitle: Container(
-            child: (Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 5, bottom: 2.5),
-                  child: Text("IP CCTV : ", style: TextStyle(fontSize: 14)),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 2.5, bottom: 5),
-                  child: Text("Location : ", style: TextStyle(fontSize: 14)),
-                ),
-              ],
-            )),
-          ),
-          trailing: Row(
-            children: const <Widget>[Text("data")],
-          )),
-    ]));
-  }
-
-  // body: Material(
-  //   color: Colors.white70.withOpacity(0.9),
-  //   child: SizedBox(
-  //     child: ListView(
-  //       scrollDirection: Axis.vertical,
-  //       shrinkWrap: true,
-  //       padding: const EdgeInsets.all(0),
-  //       children: <Widget>[
-  //         getSearchBarUI(),
-  //         //CONTENT LIST
-  //         Card(
-  //           child: Container(
-  //             decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(10),
-  //                 boxShadow: const [
-  //                   BoxShadow(color: Colors.grey, blurRadius: 6.0),
-  //                 ],
-  //                 color: Colors.white),
-  //             child: ListTile(
-  //               textColor: Colors.black,
-  //               title: const Text("Name"),
-  //               subtitle: const Text('Status '),
-  //               leading:
-  //                   const Icon(Icons.camera_alt_sharp, color: Colors.black),
-  //               trailing: IconButton(
-  //                   onPressed: () {},
-  //                   icon: const Icon(
-  //                     Icons.more_vert,
-  //                     color: Colors.black,
-  //                   )),
-  //             ),
-  //           ),
-  //         ),
-  //         Card(
-  //           child: Container(
-  //             decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(10),
-  //                 boxShadow: const [
-  //                   BoxShadow(color: Colors.grey, blurRadius: 6.0),
-  //                 ],
-  //                 color: Colors.white),
-  //             child: ListTile(
-  //               textColor: Colors.black,
-  //               title: const Text("Name"),
-  //               subtitle: const Text('Status '),
-  //               leading:
-  //                   const Icon(Icons.camera_alt_sharp, color: Colors.black),
-  //               trailing: IconButton(
-  //                   onPressed: () {},
-  //                   icon: const Icon(Icons.more_vert_sharp)),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   ),
-  // ),
-  //   );
-  // }
 
   Widget getSearchBarUI() {
     return Padding(
@@ -523,7 +381,7 @@ class _DataPageState extends State<DataPage> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      '530 hotels found',
+                      '',
                       style: TextStyle(
                         fontWeight: FontWeight.w100,
                         fontSize: 16,
@@ -541,15 +399,7 @@ class _DataPageState extends State<DataPage> {
                     borderRadius: const BorderRadius.all(
                       Radius.circular(4.0),
                     ),
-                    onTap: () {
-                      // FocusScope.of(context).requestFocus(FocusNode());
-                      // Navigator.push<dynamic>(
-                      //   context,
-                      //   MaterialPageRoute<dynamic>(
-                      //       builder: (BuildContext context) => FiltersScreen(),
-                      //       fullscreenDialog: true),
-                      // );
-                    },
+                    onTap: () {},
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Row(

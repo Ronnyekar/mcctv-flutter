@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:monitoring_cctv/Pages/data_page.dart';
 import 'package:monitoring_cctv/firebase/firebase_crud.dart';
 import 'package:monitoring_cctv/models/cctv.dart';
-import '../constant.dart';
-import 'package:monitoring_cctv/widget/widget.dart';
 
 Color bgColor = Colors.white70.withOpacity(0.9);
 Color firstcolor = const Color.fromARGB(255, 31, 56, 245);
