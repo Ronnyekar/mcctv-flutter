@@ -111,10 +111,12 @@ class _AddPageState extends State<AddPage> {
                   cctvip: _cctv_ip.text,
                   cctvlocation: _cctv_location);
               if (response.code != 200) {
+                // ignore: use_build_context_synchronously
                 Navigator.push(
                   context,
                   CupertinoPageRoute(builder: (context) => const DataPage()),
                 );
+                // ignore: use_build_context_synchronously
                 showDialog(
                     context: context,
                     builder: (context) {
@@ -123,6 +125,7 @@ class _AddPageState extends State<AddPage> {
                       );
                     });
               } else {
+                // ignore: use_build_context_synchronously
                 showDialog(
                     context: context,
                     builder: (context) {

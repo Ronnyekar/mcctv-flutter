@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:monitoring_cctv/Pages/add_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:monitoring_cctv/Pages/edit_page.dart';
+import 'package:monitoring_cctv/Pages/search_page.dart';
 import 'package:monitoring_cctv/models/cctv.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:monitoring_cctv/firebase/firebase_crud.dart';
@@ -21,7 +22,7 @@ class DataPage extends StatefulWidget {
 class _DataPageState extends State<DataPage> {
   AnimationController? animationController;
 
-  final Stream<QuerySnapshot> collectionReference = FirebaseCRUD.readCctv();
+  final Stream<QuerySnapshot> CollectionReference = FirebaseCRUD.readCctv();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +75,8 @@ class _DataPageState extends State<DataPage> {
                 SizedBox(
                   width: AppBar().preferredSize.height + 40,
                   height: AppBar().preferredSize.height,
-                )
+                ),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.search))
               ],
             ),
           ),
@@ -94,109 +96,141 @@ class _DataPageState extends State<DataPage> {
         ),
       ),
       body: StreamBuilder(
-        stream: collectionReference,
+        stream: CollectionReference,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: Row(
-                children: [
-                  const Text("<------ Swipe to choose action"),
-                  ListView(
-                    children: snapshot.data!.docs.map((e) {
-                      return Slidable(
-                        actionPane: const SlidableDrawerActionPane(),
-                        actionExtentRatio: 0.25,
-                        secondaryActions: <Widget>[
-                          IconSlideAction(
-                            caption: "EDIT",
-                            color: Colors.transparent,
-                            foregroundColor: Colors.black,
-                            icon: Icons.edit,
-                            onTap: () {
-                              Navigator.pushAndRemoveUntil<dynamic>(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) => EditPage(
-                                    cctv: Cctv(
-                                      id: e.id,
-                                      cctvname: e["cctv_name"],
-                                      cctvip: e["cctv_ip"],
-                                      cctvlocation: e["cctv_location"],
-                                    ),
-                                  ),
-                                ),
-                                (route) => true,
-                              );
-                            },
-                          ),
-                          IconSlideAction(
-                            caption: 'DELETE',
-                            color: Colors.transparent,
-                            foregroundColor: Colors.black,
-                            icon: Icons.delete,
-                            onTap: () async {
-                              var response =
-                                  await FirebaseCRUD.deleteCctv(docid: e.id);
-                              if (response.code != 200) {
-                                // ignore: use_build_context_synchronously
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        content:
-                                            Text(response.message.toString()),
-                                      );
-                                    });
-                              }
-                            },
-                          ),
-                        ],
-                        child: Card(
-                          child: Column(children: <Widget>[
-                            ListTile(
-                              contentPadding: const EdgeInsets.only(
-                                  left: 15, right: 20, top: 5, bottom: 5),
-                              title: Text(
-                                e["cctv_name"],
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                              subtitle: Container(
-                                padding: const EdgeInsets.only(
-                                  top: 7,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text("IP CCTV : " + e['cctv_ip'],
-                                        style: const TextStyle(fontSize: 14)),
-                                    Text("Location : " + e['cctv_location'],
-                                        style: const TextStyle(fontSize: 12)),
-                                  ],
-                                ),
-                              ),
-                              trailing: AnimatedContainer(
-                                height: 30,
-                                width: 60,
-                                duration: const Duration(milliseconds: 300),
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.black)),
-                                child: const Center(
-                                  child: Text(
-                                    'OK',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
+              child: ListView(
+                children: snapshot.data!.docs.map((e) {
+                  return Slidable(
+                    actionPane: const SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    secondaryActions: <Widget>[
+                      IconSlideAction(
+                        caption: "EDIT",
+                        color: Colors.transparent,
+                        foregroundColor: Colors.black,
+                        icon: Icons.edit,
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => EditPage(
+                                cctv: Cctv(
+                                  id: e.id,
+                                  cctvname: e["cctv_name"],
+                                  cctvip: e["cctv_ip"],
+                                  cctvlocation: e["cctv_location"],
                                 ),
                               ),
                             ),
-                          ]),
+                            (route) => true,
+                          );
+                        },
+                      ),
+                      IconSlideAction(
+                        caption: 'DELETE',
+                        color: Colors.transparent,
+                        foregroundColor: Colors.black,
+                        icon: Icons.delete,
+                        onTap: () async {
+                          await showDialog<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Hapus Data'),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: () async {
+                                          var response =
+                                              await FirebaseCRUD.deleteCctv(
+                                                  docid: e.id);
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.pop(context);
+                                          if (response.code != 200) {
+                                            // ignore: use_build_context_synchronously
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    content: Text(response
+                                                        .message
+                                                        .toString()),
+                                                  );
+                                                });
+                                          }
+                                        },
+                                        child: Text("Ya")),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Tidak"))
+                                  ],
+                                );
+                              });
+                          // var response =
+                          //     await FirebaseCRUD.deleteCctv(docid: e.id);
+                          // if (response.code != 200) {
+                          //   // ignore: use_build_context_synchronously
+                          //   showDialog(
+                          //       context: context,
+                          //       builder: (context) {
+                          //         return AlertDialog(
+                          //           content: Text(response.message.toString()),
+                          //         );
+                          //       });
+                          // }
+                        },
+                      ),
+                    ],
+                    child: Card(
+                      child: Column(children: <Widget>[
+                        ListTile(
+                          contentPadding: const EdgeInsets.only(
+                              left: 15, right: 20, top: 5, bottom: 5),
+                          title: Text(
+                            e["cctv_name"],
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          subtitle: Container(
+                            padding: const EdgeInsets.only(
+                              top: 7,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text("IP CCTV : " + e['cctv_ip'],
+                                    style: const TextStyle(fontSize: 14)),
+                                Text("Location : " + e['cctv_location'],
+                                    style: const TextStyle(fontSize: 12)),
+                              ],
+                            ),
+                          ),
+                          trailing: AnimatedContainer(
+                            height: 30,
+                            width: 60,
+                            duration: const Duration(milliseconds: 300),
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.black)),
+                            child: const Center(
+                              child: Text(
+                                'OK',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                      ]),
+                    ),
+                  );
+                }).toList(),
               ),
             );
           }

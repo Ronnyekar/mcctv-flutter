@@ -107,12 +107,12 @@ class _HomePageState extends State<HomePage> {
                         ),
                         IconButton(
                             onPressed: () async {
-                              // await _auth.signOut();
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => Login()),
-                              );
+                              await _auth.signOut();
+                              // Navigator.push(
+                              //   context,
+                              //   CupertinoPageRoute(
+                              //       builder: (context) => Login()),
+                              // );
                             },
                             icon: const Icon(
                               Icons.logout,

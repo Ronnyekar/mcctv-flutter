@@ -100,7 +100,6 @@ class _LoginState extends State<Login> {
               dynamic result = await _auth.signInEmailPassword(
                   LoginUser(email: _email.text, password: _password.text));
               if (result.uid == null) {
-                // ignore: use_build_context_synchronously
                 showDialog(
                     context: context,
                     builder: (context) {
