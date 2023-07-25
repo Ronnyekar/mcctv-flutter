@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:monitoring_cctv/Pages/login_page.dart';
+import 'package:monitoring_cctv/Pages/setting_page.dart';
 import 'package:monitoring_cctv/dashboard_item.dart';
 import 'package:monitoring_cctv/firebase/auth.dart';
 
@@ -108,11 +109,6 @@ class _HomePageState extends State<HomePage> {
                         IconButton(
                             onPressed: () async {
                               await _auth.signOut();
-                              // Navigator.push(
-                              //   context,
-                              //   CupertinoPageRoute(
-                              //       builder: (context) => Login()),
-                              // );
                             },
                             icon: const Icon(
                               Icons.logout,
@@ -148,12 +144,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () async {
-                        await _auth.signOut();
-                        // Navigator.push(
-                        //   context,
-                        //   CupertinoPageRoute(
-                        //       builder: (context) => const dashboard()),
-                        // );
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => SettingPage()),
+                        );
                       },
                       alignment: Alignment.topCenter,
                       icon: Image.asset(

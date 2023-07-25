@@ -229,10 +229,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "13a6ccf6a459a125b3fcdb6ec73bd5ff90822e071207c663bfd1f70062d51d18"
+      sha256: ed5337a5660c506388a9f012be0288fb38b49020ce2b45fe1f8b8323fe429f99
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.2"
   file:
     dependency: transitive
     description:
@@ -376,30 +376,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  hive:
-    dependency: "direct dev"
+  http:
+    dependency: transitive
     description:
-      name: hive
-      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
+      name: http
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
-  hive_flutter:
-    dependency: "direct dev"
-    description:
-      name: hive_flutter
-      sha256: dca1da446b1d808a51689fb5d0c6c9510c0a2ba01e22805d492c73b68e33eecc
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
-  hive_generator:
-    dependency: "direct dev"
-    description:
-      name: hive_generator
-      sha256: "65998cc4d2cd9680a3d9709d893d2f6bb15e6c1f92626c3f1fa650b4b3281521"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
+    version: "0.13.6"
   http_multi_server:
     dependency: transitive
     description:
@@ -520,6 +504,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  package_info_plus:
+    dependency: "direct dev"
+    description:
+      name: package_info_plus
+      sha256: ceb027f6bc6a60674a233b4a90a7658af1aebdea833da0b5b53c1e9821a78c7b
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
+  package_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: package_info_plus_platform_interface
+      sha256: "9bc8ba46813a4cc42c66ab781470711781940780fd8beddd0c3da62506d3a6c6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   path:
     dependency: transitive
     description:
@@ -572,10 +572,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: a34ecd7fb548f8e57321fd8e50d865d266941b54e6c3b7758cf8f37c24116905
+      sha256: d3f80b32e83ec208ac95253e0cd4d298e104fbc63cb29c5c69edaed43b0c69d6
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.7"
+    version: "2.1.6"
   platform:
     dependency: transitive
     description:
@@ -636,10 +636,10 @@ packages:
     dependency: "direct main"
     description:
       name: settings_ui
-      sha256: "9bd7ebe175fd07ccf9a324972eda9b220645948559cc2f175e4b9e39caeefaa7"
+      sha256: d9838037cb554b24b4218b2d07666fbada3478882edefae375ee892b6c820ef3
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "2.0.2"
   shelf:
     dependency: transitive
     description:
@@ -785,10 +785,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: c0e3a4f7be7dae51d8f152230b86627e3397c1ba8c3fa58e63d44a9f3edc9cef
+      sha256: "5a751eddf9db89b3e5f9d50c20ab8612296e4e8db69009788d6c8b060a84191c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.1"
+    version: "4.1.4"
   xdg_directories:
     dependency: transitive
     description:
@@ -807,4 +807,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.19.4 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.3.0"

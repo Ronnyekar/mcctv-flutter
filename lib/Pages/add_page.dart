@@ -55,7 +55,7 @@ class _AddPageState extends State<AddPage> {
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => const DataPage(),
+              builder: (BuildContext context) => DataPage(),
             ),
             (route) => false, //To disable back feature set to false
           );
@@ -114,7 +114,7 @@ class _AddPageState extends State<AddPage> {
                 // ignore: use_build_context_synchronously
                 Navigator.push(
                   context,
-                  CupertinoPageRoute(builder: (context) => const DataPage()),
+                  CupertinoPageRoute(builder: (context) => DataPage()),
                 );
                 // ignore: use_build_context_synchronously
                 showDialog(

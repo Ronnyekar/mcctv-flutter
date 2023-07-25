@@ -27,7 +27,7 @@ class DashboardItem extends StatelessWidget {
         Navigator.push(
             context,
             CupertinoPageRoute(
-              builder: (context) => const DataPage(),
+              builder: (context) => DataPage(),
             ));
       },
     );

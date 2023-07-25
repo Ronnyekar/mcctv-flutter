@@ -4,6 +4,7 @@ import 'package:monitoring_cctv/Pages/company_selector_page.dart';
 import 'package:monitoring_cctv/constant.dart';
 import 'package:monitoring_cctv/firebase/auth.dart';
 import 'package:monitoring_cctv/models/loginuser.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 Color firstcolor = const Color.fromARGB(255, 31, 56, 245);
 Color secondcolor = const Color.fromARGB(255, 30, 129, 242);
@@ -18,6 +19,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String? _packageInfoText;
+  String? versionName;
   final _email = TextEditingController();
   final _password = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -25,6 +28,15 @@ class _LoginState extends State<Login> {
 
   bool _obscureText = true;
   bool rememberMe = false;
+
+  void getInfoPlatform() async {
+    PackageInfo _packageInfo = await PackageInfo.fromPlatform();
+    versionName = _packageInfo.version;
+
+    setState(() {
+      _packageInfoText = "Version $versionName";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +133,7 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-
+    getInfoPlatform();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: bgColor,
@@ -131,7 +143,40 @@ class _LoginState extends State<Login> {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            HeaderContainer(''),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [firstColor, secondColor],
+                      end: Alignment.bottomCenter,
+                      begin: Alignment.topCenter),
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(100))),
+              child: Stack(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "images/Logo-white.png",
+                        height: 300,
+                        width: 300,
+                      ),
+                    ],
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Text(
+                        _packageInfoText.toString(),
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Form(
               key: _formKey,
               child: Expanded(
@@ -218,42 +263,6 @@ class _LoginState extends State<Login> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class HeaderContainer extends StatelessWidget {
-  var text = '';
-  HeaderContainer(this.text);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [firstColor, secondColor],
-              end: Alignment.bottomCenter,
-              begin: Alignment.topCenter),
-          borderRadius:
-              const BorderRadius.only(bottomLeft: Radius.circular(100))),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-              bottom: 20,
-              right: 20,
-              child: Text(
-                text,
-                style: kBodyText2,
-              )),
-          Center(
-            child: Image.asset(
-              "images/Logo-white.png",
-              height: 300,
-              width: 300,
-            ),
-          ),
-        ],
       ),
     );
   }

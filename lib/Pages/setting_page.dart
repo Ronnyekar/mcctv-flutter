@@ -15,17 +15,18 @@ class SettingPage extends StatelessWidget {
       ),
       body: SettingsList(
         sections: [
-          SettingsSection(title: 'Section 1', tiles: [
+          SettingsSection(title: Text('Section 1'), tiles: [
             SettingsTile(
-              title: 'Language',
-              subtitle: 'English',
+              title: Text('Language'),
+              description: Text('English'),
               leading: const Icon(Icons.language),
               onPressed: (BuildContext context) {},
             ),
             SettingsTile.switchTile(
-              title: 'Use System Theme',
+              initialValue: true,
+              title: Text('Use System Theme'),
               leading: const Icon(Icons.phone_android),
-              switchValue: isSwitched,
+              // switchValue: isSwitched,
               onToggle: (value) {
                 // setState(() {
                 //   isSwitched = value;
@@ -34,19 +35,21 @@ class SettingPage extends StatelessWidget {
             )
           ]),
           SettingsSection(
-            titlePadding: const EdgeInsets.all(20),
-            title: 'Section 2',
+            margin: EdgeInsetsDirectional.all(20),
+            // titlePadding: const EdgeInsets.all(20),
+            title: Text('Section 2'),
             tiles: [
               SettingsTile(
-                title: 'Security',
-                subtitle: 'Fingerptint',
+                title: Text('Security'),
+                description: Text('Fingerptint'),
                 leading: const Icon(Icons.lock),
                 onPressed: (BuildContext context) {},
               ),
               SettingsTile.switchTile(
-                title: 'Use Fingerprint',
+                initialValue: true,
+                title: Text('Use Fingerprint'),
                 leading: const Icon(Icons.fingerprint),
-                switchValue: true,
+                // switchValue: true,
                 onToggle: (value) {},
               )
             ],

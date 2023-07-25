@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.monitoring_cctv">
    <application
-        android:label="monitoring_cctv"
+        android:label="Monitoring Project"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

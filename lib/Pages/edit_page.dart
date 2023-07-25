@@ -72,18 +72,6 @@ class _EditPageState extends State<EditPage> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
-    final viewListbutton = TextButton(
-        onPressed: () {
-          Navigator.pushAndRemoveUntil<dynamic>(
-            context,
-            MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => DataPage(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
-        },
-        child: const Text('View List of Employee'));
-
     Widget LocationDD() {
       return DropdownButton<String>(
         value: _cctv_location,
